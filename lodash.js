@@ -1077,6 +1077,40 @@
   }
 
   /**
+   * Creates a deep clone of `value` in which all nested objects will
+   * also be cloned. Functions and DOM nodes are **not** cloned. The enumerable
+   * properties of `arguments` objects and objects created by constructors
+   * other than `Object` are cloned to plain `Object` objects.
+   *
+   * Note: Lo-Dash's deep clone functionality is loosely based on the structured
+   * clone algorithm. See
+   * http://www.w3.org/TR/html5/common-dom-interfaces.html#internal-structured-cloning-algorithm.
+   *
+   * @static
+   * @memberOf _
+   * @category Objects
+   * @param {Mixed} value The value to deep clone.
+   * @returns {Mixed} Returns the deep cloned `value`.
+   * @example
+   *
+   * var stooges = [
+   *   { 'name': 'moe', 'age': 40 },
+   *   { 'name': 'larry', 'age': 50 },
+   *   { 'name': 'curly', 'age': 60 }
+   * ];
+   *
+   * _.cloneDeep({ 'name': 'moe' });
+   * // => { 'name': 'moe' }
+   *
+   * var deep = _.cloneDeep(stooges);
+   * deep[0] === stooges[0];
+   * // => false
+   */
+  function cloneDeep(value) {
+    return clone(value, true);
+  }
+
+  /**
    * Assigns own enumerable properties of source object(s) to the `destination`
    * object for all `destination` properties that resolve to `null`/`undefined`.
    * Once a property is set, additional defaults of the same property will be
@@ -4257,6 +4291,7 @@
 
   // add functions that return unwrapped values when chaining
   lodash.clone = clone;
+  lodash.cloneDeep = cloneDeep;
   lodash.contains = contains;
   lodash.escape = escape;
   lodash.every = every;
